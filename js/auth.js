@@ -302,7 +302,4 @@ const Auth = (() => {
     },
     logout: logout
   };
-})();
-
-// Initialize auth when the DOM is ready
-document.addEventListener('DOMContentLoaded', Auth.initialize); 
+})(); 

@@ -410,7 +410,4 @@ const Auction = (() => {
       return currentPlayer;
     }
   };
-})();
-
-// Initialize auction when the DOM is ready
-document.addEventListener('DOMContentLoaded', Auction.initialize); 
+})(); 

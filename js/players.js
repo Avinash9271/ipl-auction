@@ -76,36 +76,83 @@ const Players = (() => {
         wickets: 49
       },
       image: "https://resources.pulse.icc-cricket.com/players/284/485.png"
+    },
+    {
+      id: 6,
+      name: "Jofra Archer",
+      type: "Bowler",
+      basePrice: 1500000,
+      country: "England",
+      stats: {
+        bowlingAverage: 21.1,
+        economy: 7.2,
+        matches: 35,
+        wickets: 46
+      },
+      image: "https://resources.pulse.icc-cricket.com/players/284/3097.png"
+    },
+    {
+      id: 7,
+      name: "Kane Williamson",
+      type: "Batsman",
+      basePrice: 1500000,
+      country: "New Zealand",
+      stats: {
+        battingAverage: 37.2,
+        strikeRate: 128.1,
+        matches: 76,
+        runs: 2021
+      },
+      image: "https://resources.pulse.icc-cricket.com/players/284/440.png"
+    },
+    {
+      id: 8,
+      name: "Rashid Khan",
+      type: "Bowler",
+      basePrice: 1800000,
+      country: "Afghanistan",
+      stats: {
+        bowlingAverage: 20.1,
+        economy: 6.3,
+        matches: 87,
+        wickets: 112
+      },
+      image: "https://resources.pulse.icc-cricket.com/players/284/2885.png"
     }
   ];
-
-  // Add more sample players here...
-  // In a real implementation, you'd have all 120 players
 
   // Initialize player data in Firebase
   async function initializePlayers() {
     try {
+      console.log('Starting player initialization...');
+      
       // Check if players already exist
       const snapshot = await dbRefs.players.once('value');
+      console.log('Player snapshot received:', snapshot.exists());
       
       if (snapshot.exists() && Object.keys(snapshot.val()).length > 0) {
         console.log('Players already initialized');
         return true;
       }
       
+      console.log('No players found. Adding sample players...');
+      
       // Add sample players to Firebase
       const updates = {};
       
       samplePlayers.forEach(player => {
-        player.status = 'unsold';
-        updates[player.id] = player;
+        const playerCopy = {...player};
+        playerCopy.status = 'unsold';
+        updates[player.id] = playerCopy;
       });
       
-      await dbRefs.players.update(updates);
+      console.log('Updating players in Firebase...');
+      await dbRefs.players.set(updates);
       console.log('Players initialized successfully');
       return true;
     } catch (error) {
       console.error('Error initializing players:', error);
+      alert('Error initializing players: ' + error.message);
       return false;
     }
   }
@@ -135,8 +182,12 @@ const Players = (() => {
   // Get unsold players
   async function getUnsoldPlayers() {
     try {
+      console.log('Fetching unsold players...');
       const snapshot = await dbRefs.players.orderByChild('status').equalTo('unsold').once('value');
-      return snapshot.val() || {};
+      console.log('Unsold players snapshot:', snapshot.exists());
+      const players = snapshot.val() || {};
+      console.log('Unsold players count:', Object.keys(players).length);
+      return players;
     } catch (error) {
       console.error('Error getting unsold players:', error);
       return {};
@@ -165,14 +216,19 @@ const Players = (() => {
   // Get next unsold player
   async function getNextUnsoldPlayer() {
     try {
+      console.log('Getting next unsold player...');
       const players = await getUnsoldPlayers();
       const playerIds = Object.keys(players);
       
+      console.log('Available unsold players:', playerIds.length);
+      
       if (playerIds.length === 0) {
+        console.log('No unsold players available');
         return null;
       }
       
       // Get the first unsold player
+      console.log('Next player:', players[playerIds[0]].name);
       return players[playerIds[0]];
     } catch (error) {
       console.error('Error getting next unsold player:', error);

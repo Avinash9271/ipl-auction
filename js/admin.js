@@ -8,18 +8,23 @@ const Admin = (() => {
   function initialize() {
     if (isInitialized) return;
     
+    console.log('Initializing Admin module...');
+    
     // Set up event listeners
     setupEventListeners();
     
     // Listen for admin login
     document.addEventListener('adminLoggedIn', () => {
+      console.log('Admin logged in event received');
       renderAuctionStatus();
     });
     
     // Listen for auction updates
     dbRefs.currentAuction.on('value', (snapshot) => {
       renderAuctionStatus();
-      checkTimerExpiration(snapshot.val());
+      if (snapshot.val()) {
+        checkTimerExpiration(snapshot.val());
+      }
     });
     
     isInitialized = true;
@@ -166,23 +171,35 @@ const Admin = (() => {
   async function initializeData() {
     try {
       updateAuctionStatus('Initializing data...');
+      console.log('Starting data initialization...');
       
       // Initialize players
+      console.log('Initializing players...');
       const playersSuccess = await Players.initialize();
+      console.log('Players initialization result:', playersSuccess);
       
       // Initialize teams
+      console.log('Initializing teams...');
       const teamsSuccess = await Auction.initializeTeams();
+      console.log('Teams initialization result:', teamsSuccess);
       
-      if (playersSuccess && teamsSuccess) {
+      // Initialize auction data
+      console.log('Initializing auction data...');
+      const auctionSuccess = await Auction.initializeAuctionData();
+      console.log('Auction initialization result:', auctionSuccess);
+      
+      if (playersSuccess && teamsSuccess && auctionSuccess) {
+        console.log('All data initialized successfully');
         updateAuctionStatus('Data initialized successfully');
         return true;
       } else {
+        console.error('Error initializing data - some components failed');
         updateAuctionStatus('Error initializing data');
         return false;
       }
     } catch (error) {
       console.error('Error initializing data:', error);
-      updateAuctionStatus('Error initializing data');
+      updateAuctionStatus('Error initializing data: ' + error.message);
       return false;
     }
   }
@@ -318,7 +335,4 @@ const Admin = (() => {
       return autoNextPlayer;
     }
   };
-})();
-
-// Initialize admin when the DOM is ready
-document.addEventListener('DOMContentLoaded', Admin.initialize); 
+})(); 
