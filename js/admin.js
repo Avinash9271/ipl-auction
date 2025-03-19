@@ -23,6 +23,7 @@ const Admin = (() => {
     });
     
     isInitialized = true;
+    console.log('Admin module initialized');
   }
   
   // Set up event listeners
@@ -301,12 +302,12 @@ const Admin = (() => {
   
   // Public methods
   return {
-    initialize,
-    startAuction,
-    nextPlayer,
-    resetAuction,
-    initializeData,
-    generateTeamLinks,
+    initialize: initialize,
+    startAuction: startAuction,
+    nextPlayer: nextPlayer,
+    resetAuction: resetAuction,
+    initializeData: initializeData,
+    generateTeamLinks: generateTeamLinks,
     
     // Toggle auto next player
     setAutoNextPlayer: function(value) {

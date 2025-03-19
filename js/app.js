@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Application initialization
   try {
+    // Initialize modules
+    Auth.initialize();
+    Admin.initialize();
+    Auction.initialize();
+    
+    // Try to load user from localStorage (if they were previously logged in)
+    Auth.loadUser();
+    
     // Setup periodic UI updates
     setInterval(() => {
       // Update teams list

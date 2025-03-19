@@ -9,6 +9,17 @@ const Auth = (() => {
   // For demonstration purposes only
   const teamTokens = {};
 
+  // Initialize the module
+  function initialize() {
+    setupEventListeners();
+    populateTeamSelect();
+    
+    // Check for URL parameters
+    if (teamParam && tokenParam) {
+      authenticateWithUrl();
+    }
+  }
+
   // Event listeners
   function setupEventListeners() {
     // Login form submission
@@ -256,55 +267,42 @@ const Auth = (() => {
   function populateTeamSelect() {
     const teamSelect = document.getElementById('team-select');
     
-    // Clear existing options except the default and admin
-    Array.from(teamSelect.options).forEach(option => {
-      if (option.value !== '' && option.value !== 'admin') {
-        teamSelect.removeChild(option);
-      }
-    });
+    // Clear existing options except the first one
+    while (teamSelect.options.length > 1) {
+      teamSelect.remove(1);
+    }
     
-    // Add teams from Firebase
+    // Get teams from Firebase
     dbRefs.teams.once('value', (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const teamData = childSnapshot.val();
-        const option = document.createElement('option');
-        option.value = childSnapshot.key;
-        option.textContent = teamData.name;
-        teamSelect.appendChild(option);
-      });
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          const team = childSnapshot.val();
+          const option = document.createElement('option');
+          option.value = childSnapshot.key;
+          option.textContent = team.name;
+          teamSelect.appendChild(option);
+        });
+      } else {
+        console.log('No teams found in the database');
+      }
     });
   }
 
   // Public methods
   return {
-    init: function() {
-      setupEventListeners();
-      
-      // Check URL parameters first
-      if (teamParam && tokenParam) {
-        authenticateWithUrl();
-      } else {
-        // Try loading from localStorage
-        if (!loadUser()) {
-          // If no stored user, populate team select
-          populateTeamSelect();
-        }
-      }
-    },
-    
+    initialize: initialize,
+    loadUser: loadUser,
+    generateTeamLink: generateTeamLink,
+    populateTeamSelect: populateTeamSelect,
     getCurrentUser: function() {
       return currentUser;
     },
-    
     isAdmin: function() {
       return isAdmin;
     },
-    
-    logout: logout,
-    
-    generateTeamLink: generateTeamLink
+    logout: logout
   };
 })();
 
 // Initialize auth when the DOM is ready
-document.addEventListener('DOMContentLoaded', Auth.init); 
+document.addEventListener('DOMContentLoaded', Auth.initialize); 

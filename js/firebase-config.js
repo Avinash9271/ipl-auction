@@ -5,14 +5,19 @@ const firebaseConfig = {
   authDomain: "some-shite.firebaseapp.com",
   databaseURL: "https://some-shite-default-rtdb.firebaseio.com",
   projectId: "some-shite",
-  storageBucket: "some-shite.firebasestorage.app",
+  storageBucket: "some-shite.appspot.com",
   messagingSenderId: "219023659434",
   appId: "1:219023659434:web:141e46e8b224bb56585bd3"
 };
 
-
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+try {
+  firebase.initializeApp(firebaseConfig);
+  console.log("Firebase initialized successfully");
+} catch (error) {
+  console.error("Error initializing Firebase:", error);
+  alert("Error connecting to the database. Some features may not work properly.");
+}
 
 // Get a reference to the database service
 const database = firebase.database();

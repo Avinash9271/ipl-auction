@@ -9,6 +9,13 @@ const Auction = (() => {
   let minBidIncrement = 100000; // Minimum bid increment (₹1,00,000)
   let isAuctionActive = false;
 
+  // Initialize auction module
+  function initialize() {
+    initEventListeners();
+    initializeAuctionData();
+    console.log('Auction module initialized');
+  }
+
   // Initialize auction event listeners
   function initEventListeners() {
     // Bid button
@@ -21,6 +28,29 @@ const Auction = (() => {
     document.addEventListener('teamLoggedIn', () => {
       updateBidButtonState();
     });
+  }
+
+  // Initialize auction data
+  async function initializeAuctionData() {
+    try {
+      // Initialize auction state if it doesn't exist
+      const snapshot = await dbRefs.currentAuction.once('value');
+      if (!snapshot.exists()) {
+        await dbRefs.currentAuction.set({
+          currentPlayerId: null,
+          currentBid: 0,
+          currentBidder: null,
+          bidEndTime: 0,
+          status: 'waiting'
+        });
+      }
+      
+      console.log('Auction data initialized successfully');
+      return true;
+    } catch (error) {
+      console.error('Error initializing auction data:', error);
+      return false;
+    }
   }
 
   // Handle auction data updates from Firebase
@@ -368,39 +398,17 @@ const Auction = (() => {
     }
   }
 
-  // Initialize auction data
-  async function initialize() {
-    try {
-      // Initialize teams
-      await initializeTeams();
-      
-      // Initialize auction state
-      await dbRefs.currentAuction.set({
-        currentPlayerId: null,
-        currentBid: 0,
-        currentBidder: null,
-        bidEndTime: 0,
-        status: 'waiting'
-      });
-      
-      // Set up event listeners
-      initEventListeners();
-      
-      console.log('Auction initialized successfully');
-      return true;
-    } catch (error) {
-      console.error('Error initializing auction:', error);
-      return false;
-    }
-  }
-
   // Public methods
   return {
-    initialize,
-    startPlayerAuction,
-    finalizePlayerSale,
-    renderTeamsList,
-    initializeTeams
+    initialize: initialize,
+    startPlayerAuction: startPlayerAuction,
+    finalizePlayerSale: finalizePlayerSale,
+    renderTeamsList: renderTeamsList,
+    initializeTeams: initializeTeams,
+    initializeAuctionData: initializeAuctionData,
+    getCurrentPlayer: function() {
+      return currentPlayer;
+    }
   };
 })();
 
