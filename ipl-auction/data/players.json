@@ -1,0 +1,150 @@
+[
+  {
+    "id": 1,
+    "name": "Virat Kohli",
+    "type": "Batsman",
+    "basePrice": 2000000,
+    "country": "India",
+    "stats": {
+      "battingAverage": 53.5,
+      "strikeRate": 138.2,
+      "matches": 223,
+      "runs": 6624
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/164.png"
+  },
+  {
+    "id": 2,
+    "name": "Rohit Sharma",
+    "type": "Batsman",
+    "basePrice": 2000000,
+    "country": "India",
+    "stats": {
+      "battingAverage": 31.3,
+      "strikeRate": 130.6,
+      "matches": 227,
+      "runs": 5879
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/107.png"
+  },
+  {
+    "id": 3,
+    "name": "Jasprit Bumrah",
+    "type": "Bowler",
+    "basePrice": 1500000,
+    "country": "India",
+    "stats": {
+      "bowlingAverage": 23.5,
+      "economy": 7.4,
+      "matches": 120,
+      "wickets": 145
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/1124.png"
+  },
+  {
+    "id": 4,
+    "name": "MS Dhoni",
+    "type": "Wicketkeeper",
+    "basePrice": 1800000,
+    "country": "India",
+    "stats": {
+      "battingAverage": 38.2,
+      "strikeRate": 135.8,
+      "matches": 220,
+      "runs": 4978,
+      "dismissals": 195
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/1.png"
+  },
+  {
+    "id": 5,
+    "name": "Ben Stokes",
+    "type": "All-rounder",
+    "basePrice": 1700000,
+    "country": "England",
+    "stats": {
+      "battingAverage": 26.4,
+      "strikeRate": 134.5,
+      "bowlingAverage": 31.6,
+      "economy": 8.9,
+      "matches": 85,
+      "runs": 920,
+      "wickets": 49
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/485.png"
+  },
+  {
+    "id": 6,
+    "name": "Jos Buttler",
+    "type": "Wicketkeeper",
+    "basePrice": 1500000,
+    "country": "England",
+    "stats": {
+      "battingAverage": 40.2,
+      "strikeRate": 150.8,
+      "matches": 92,
+      "runs": 2140,
+      "dismissals": 52
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/498.png"
+  },
+  {
+    "id": 7,
+    "name": "Rashid Khan",
+    "type": "Bowler",
+    "basePrice": 1500000,
+    "country": "Afghanistan",
+    "stats": {
+      "bowlingAverage": 21.1,
+      "economy": 6.35,
+      "matches": 76,
+      "wickets": 112
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/2885.png"
+  },
+  {
+    "id": 8,
+    "name": "Kane Williamson",
+    "type": "Batsman",
+    "basePrice": 1400000,
+    "country": "New Zealand",
+    "stats": {
+      "battingAverage": 32.5,
+      "strikeRate": 123.6,
+      "matches": 76,
+      "runs": 2021
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/440.png"
+  },
+  {
+    "id": 9,
+    "name": "Andre Russell",
+    "type": "All-rounder",
+    "basePrice": 1600000,
+    "country": "West Indies",
+    "stats": {
+      "battingAverage": 29.1,
+      "strikeRate": 169.8,
+      "bowlingAverage": 26.9,
+      "economy": 9.1,
+      "matches": 98,
+      "runs": 1938,
+      "wickets": 82
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/596.png"
+  },
+  {
+    "id": 10,
+    "name": "Kagiso Rabada",
+    "type": "Bowler",
+    "basePrice": 1400000,
+    "country": "South Africa",
+    "stats": {
+      "bowlingAverage": 25.3,
+      "economy": 8.21,
+      "matches": 63,
+      "wickets": 99
+    },
+    "image": "https://resources.pulse.icc-cricket.com/players/284/3667.png"
+  }
+] 

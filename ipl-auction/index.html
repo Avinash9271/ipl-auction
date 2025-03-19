@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Auction</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IPL Auction</h1>
+            <div id="user-info">
+                <span id="team-name">Not logged in</span>
+                <span id="budget-display">Budget: ₹0</span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Login Screen -->
+            <section id="login-screen" class="screen">
+                <h2>Join the Auction</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="team-select">Select Your Team:</label>
+                        <select id="team-select" required>
+                            <option value="">-- Select Team --</option>
+                            <!-- Teams will be populated from JavaScript -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit">Enter Auction</button>
+                </form>
+                <div class="admin-link">
+                    <a href="#" id="admin-link">Admin Login</a>
+                </div>
+            </section>
+
+            <!-- Auction Screen -->
+            <section id="auction-screen" class="screen hidden">
+                <div class="auction-container">
+                    <div class="current-player">
+                        <h2>Current Player</h2>
+                        <div id="player-card">
+                            <div class="player-image">
+                                <img id="player-image" src="https://via.placeholder.com/150" alt="Player Image">
+                            </div>
+                            <div class="player-details">
+                                <h3 id="player-name">Player Name</h3>
+                                <p id="player-type">Player Type</p>
+                                <p id="player-country">Country</p>
+                                <p id="base-price">Base Price: ₹0</p>
+                            </div>
+                            <div class="player-stats" id="player-stats">
+                                <!-- Stats will be populated from JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bidding-area">
+                        <div class="current-bid">
+                            <h3>Current Bid</h3>
+                            <div id="current-bid-amount">₹0</div>
+                            <div id="current-bidder">No bids yet</div>
+                        </div>
+                        
+                        <div class="timer-container">
+                            <div id="timer">30</div>
+                            <div id="timer-label">seconds remaining</div>
+                        </div>
+                        
+                        <div class="bid-controls">
+                            <button id="bid-button" class="primary-button">Place Bid (₹0)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="teams-container">
+                    <h3>Teams</h3>
+                    <div id="teams-list">
+                        <!-- Teams will be populated from JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Screen -->
+            <section id="admin-screen" class="screen hidden">
+                <h2>Admin Controls</h2>
+                <div class="admin-controls">
+                    <button id="start-auction">Start Auction</button>
+                    <button id="next-player">Next Player</button>
+                    <button id="reset-auction">Reset Auction</button>
+                </div>
+                <div class="admin-status">
+                    <h3>Auction Status</h3>
+                    <div id="auction-status">Not started</div>
+                </div>
+                <div class="admin-setup">
+                    <h3>Setup</h3>
+                    <button id="init-data">Initialize Data</button>
+                    <button id="generate-links">Generate Team Links</button>
+                    <div id="team-links">
+                        <!-- Team links will be displayed here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2023 IPL Auction System</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/players.js"></script>
+    <script src="js/auction.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
